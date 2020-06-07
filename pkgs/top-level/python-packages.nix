@@ -4133,7 +4133,10 @@ in {
 
   hkdf = callPackage ../development/python-modules/hkdf { };
 
-  httpretty = callPackage ../development/python-modules/httpretty { };
+  httpretty = if isPy3k then
+    callPackage ../development/python-modules/httpretty { }
+  else
+    callPackage ../development/python-modules/httpretty/0.nix { };
 
   iapws = callPackage ../development/python-modules/iapws { };
 
