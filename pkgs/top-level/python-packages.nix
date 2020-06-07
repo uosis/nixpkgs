@@ -4822,8 +4822,6 @@ in {
     graphvizPkg = pkgs.graphviz;
   };
 
-  odo = callPackage ../development/python-modules/odo { };
-
   offtrac = callPackage ../development/python-modules/offtrac { };
 
   openpyxl = if pythonAtLeast "3.6" then
