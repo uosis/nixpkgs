@@ -323,6 +323,12 @@ let
         description = "Contents of the PAM service file.";
       };
 
+      extraConfig.auth.pre = mkOption {
+        type = types.lines;
+        default = "";
+        description = "Auth section extra config";
+      };
+
     };
 
     config = {
@@ -351,6 +357,7 @@ let
           ''}
 
           # Authentication management.
+          ${cfg.extraConfig.auth.pre}
           ${optionalString cfg.googleOsLoginAuthentication
               "auth [success=done perm_denied=bad default=ignore] ${pkgs.google-compute-engine-oslogin}/lib/pam_oslogin_login.so"}
           ${optionalString cfg.rootOK
