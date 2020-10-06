@@ -1,4 +1,4 @@
-{ python3Packages, fetchurl, lib,
+{ python3Packages, fetchurl, lib, fetchpatch,
   yubikey-personalization, libu2f-host, libusb1 }:
 
 python3Packages.buildPythonPackage rec {
@@ -9,6 +9,15 @@ python3Packages.buildPythonPackage rec {
     url = "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.gz";
     hash = "sha256-dwnIOuu0QyWRl6RSdyQw7dGsAZ4xpXpx6jOpCkp4efE=";
   };
+
+  patches = [
+    # https://github.com/Yubico/yubikey-manager/issues/279
+    (fetchpatch {
+      name = "openpgp-kdf-support.patch";
+      url = "https://github.com/Yubico/yubikey-manager/commit/4bea80dc4e258d1044effa53a2fc224a3ed90672.patch";
+      sha256 = "1ivzpafz3zpbfhdpc2s13q0jhdsj9ly08brmpkbkv648amg4sk83";
+    })
+  ];
 
   propagatedBuildInputs =
     with python3Packages; [
